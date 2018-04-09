@@ -33,7 +33,7 @@ class Tree:
 		else:
 			return None
 
-	def _find(self, val, root):
+	def _find(self, val, node):
 		if(val == node.value):
 			return node
 		elif(val < node.value and node.left != None):
@@ -41,4 +41,21 @@ class Tree:
 		elif(val > node.value and node.right != None):
 			self._find(val, node.right)
 
+	def add(self, val):
+		if(self.root == None):
+			self.root = Node(val)
+		else:
+			self._add(val, self.root)
 
+	def _add(self, val, node):
+		if(val < node.value):
+			if(node.left != None):
+				self._add(val, node.left)
+			else:
+				node.left = Node(val)
+		else:
+			if(node.right != None):
+				self._add(val, node.right)
+			else:
+				node.right = Node(val)
+	
