@@ -6,6 +6,8 @@ class Node:
 		self.left = None
 		self.right = None
 		self.value = val
+	def Value(self):
+		return self.value
 
 class Tree:
 	def __init__(self):
