@@ -3,3 +3,4 @@ A review of fundamentals with relevant Python implementations; following Damian 
 
 ## Data Structures
 - Binary Tree
+- Linked List (single)
