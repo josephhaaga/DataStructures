@@ -33,7 +33,13 @@ class LinkedList:
 			node.next = Node(val)
 
 		return None
-	def Search(self):
-		return None
+	def Search(self, target):
+		node = self.head
+		while(node != None):
+			if(node.value == target):
+				return node	
+			node = node.next	
+					
+	
 	def Delete(self):
 		return None
