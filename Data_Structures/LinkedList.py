@@ -38,8 +38,19 @@ class LinkedList:
 		while(node != None):
 			if(node.value == target):
 				return node	
-			node = node.next	
+			node = node.next
 					
 	
-	def Delete(self):
-		return None
+	def Delete(self, target):
+		if(self.Search(target) != None):
+			node = self.head
+			if node.value == target:
+				self.head = node.next
+				return node
+			else:
+				while(node.next.value != target):
+					node = node.next
+				node_to_delete = node.next
+				node.next = node_to_delete.next
+				return node_to_delete	
+		
