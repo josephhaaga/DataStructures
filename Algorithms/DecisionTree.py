@@ -49,21 +49,32 @@ class Node:
                     trues.append(d)
                 else:
                     falses.append(d)
-            true_gini = len(trues) * self.calc_gini_impurity(trues)
-            false_gini = len(falses) * self.calc_gini_impurity(falses)
+            true_gini = (len(trues)/len(self.data)) * self.calc_gini_impurity(trues)
+            false_gini = (len(falses)/len(self.data)) * self.calc_gini_impurity(falses)
             info_gain = self.impurity - (true_gini + false_gini)
             information_gains.append((q, info_gain))
-        information_gains = sorted(information_gains, key=lambda x: x[1])
-        if len(falses) > 0 and len(trues) > 0:
-            self.question = information_gains[-1][0]
-            self.false_branch = Node(falses, self.level+1)
-            self.true_branch = Node(trues, self.level+1)
+        self.information_gains = information_gains = sorted(information_gains, key=lambda x: x[1])
+        if(len(self.information_gains)):
+            q = information_gains[-1][0]
+            trues = []; falses = [];
+            for d in self.data:
+                if q.ask(d):
+                    trues.append(d)
+                else:
+                    falses.append(d)
+            if len(falses) > 0 and len(trues) > 0:
+                self.question = information_gains[-1][0]
+                self.false_branch = Node(falses, self.level+1)
+                self.true_branch = Node(trues, self.level+1)
         return True
 
     def print_question(self):
         print(self.question)
 
     def calc_gini_impurity(self, data):
+        """
+        Returns the Gini Impurity (uncertainty) at a Node
+        """
         impurity = 1
         label_counts = get_value_counts(data)
         for label in label_counts.keys():
