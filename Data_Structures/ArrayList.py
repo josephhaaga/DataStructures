@@ -1,12 +1,14 @@
 # An array that resizes itself as needed while still providing O(1) access.
 # A typical implementation is that when the array is full, the array doubles in size.
-# Each doubling takes O(n) time, but happens so rarely that it's amortized unsertion time is still O(1)
+# Each doubling takes O(n) time, but happens so rarely that it's amortized insertion time is still O(1)
 
 RESIZING_FACTOR = 2
 
 class ArrayList:
     elements = []
     size = 1
+    resize_events = 0
+
     def __init__(self, initial_size = 1):
         self.size = initial_size
         
@@ -16,6 +18,7 @@ class ArrayList:
         self.elements += [element]
 
     def increase_in_size(self):
+        self.resize_events += 1
         print(f"Increasing in size from {self.size} to {RESIZING_FACTOR * self.size}")
         new_elements = [x for x in self.elements] # simulate copy
         self.size *= RESIZING_FACTOR
